@@ -36,8 +36,9 @@ function loadQuestion() {
     // 更新技能按钮状态
     updateSkillButtons();
     
-    // 更新题号
-    document.getElementById('questionNumber').textContent = `第 ${questionNum} 题`;
+    // 更新题号（使用冒险场景描述）
+    const sceneText = adventureScenes[gameState.currentQuestionIndex] || `第 ${questionNum} 题`;
+    document.getElementById('questionNumber').textContent = sceneText;
     document.getElementById('questionText').textContent = question.question;
     
     // 生成选项（1个正确答案 + 3个干扰项，随机排序）
