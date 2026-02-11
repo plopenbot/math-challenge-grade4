@@ -6,19 +6,10 @@
 const pokemonData = {
     total: 1025, // 目前共有1025只宝可梦
     shinyRate: 0.1, // 10%概率出现闪光
-    gen1Total: 151, // 第一世代宝可梦数量
-    gen1Weight: 0.7, // 70%概率出现第一世代宝可梦（有中文介绍）
     
     // 获取随机宝可梦
     getRandom: function() {
-        // 70%概率选择第一世代（1-151），30%概率选择其他世代
-        let id;
-        if (Math.random() < this.gen1Weight) {
-            id = Math.floor(Math.random() * this.gen1Total) + 1;
-        } else {
-            id = Math.floor(Math.random() * (this.total - this.gen1Total)) + this.gen1Total + 1;
-        }
-        
+        const id = Math.floor(Math.random() * this.total) + 1;
         const isShiny = Math.random() < this.shinyRate;
         
         // 使用更小的图片版本（96x96），加载速度更快
