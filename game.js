@@ -9,13 +9,29 @@ let gameState = {
         change: 1
     },
     answered: false,
-    eliminatedOptions: []
+    eliminatedOptions: [],
+    currentTopic: null  // 当前题库类型: 'math' 或 'science'
 };
+
+// 开始游戏（从题库选择）
+function startGame(topic) {
+    gameState.currentTopic = topic;
+    
+    // 隐藏选择界面，显示游戏界面
+    document.getElementById('topicSelection').style.display = 'none';
+    document.getElementById('gameMain').style.display = 'block';
+    
+    // 初始化游戏
+    initGame();
+}
 
 // 初始化游戏
 function initGame() {
+    // 根据选择的题库获取题目
+    const questionSource = gameState.currentTopic === 'science' ? scienceQuestionBank : questionBank;
+    
     // 从题库中随机选取30道题
-    const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
+    const shuffled = [...questionSource].sort(() => Math.random() - 0.5);
     gameState.selectedQuestions = shuffled.slice(0, 30);
     
     // 显示第一题
@@ -130,8 +146,24 @@ function showCorrectPopup() {
     const popup = document.getElementById('correctPopup');
     const content = popup.querySelector('.reward-content');
     
-    // 获取随机宝可梦和鼓励语
-    const pokemon = pokemonData.getRandom();
+    // 获取宝可梦和鼓励语
+    // 第30题（索引29）必定出现闪光宝可梦
+    let pokemon;
+    if (gameState.currentQuestionIndex === 29) {
+        // 强制闪光
+        const id = Math.floor(Math.random() * pokemonData.total) + 1;
+        const baseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
+        pokemon = {
+            id: id,
+            isShiny: true,
+            name: `宝可梦 #${id}`,
+            imageUrl: `${baseUrl}/shiny/${id}.png`,
+            rarity: '✨ 闪光'
+        };
+    } else {
+        pokemon = pokemonData.getRandom();
+    }
+    
     const encouragement = pokemonData.getEncouragement();
     
     // 先显示弹窗（带占位符），图片异步加载
@@ -315,6 +347,10 @@ function restartGame() {
     document.getElementById('rewardPopup').style.display = 'none';
     document.getElementById('correctPopup').style.display = 'none';
     
+    // 显示题库选择界面
+    document.getElementById('gameMain').style.display = 'none';
+    document.getElementById('topicSelection').style.display = 'flex';
+    
     gameState = {
         currentQuestionIndex: 0,
         correctAnswers: 0,
@@ -325,14 +361,12 @@ function restartGame() {
             change: 1
         },
         answered: false,
-        eliminatedOptions: []
+        eliminatedOptions: [],
+        currentTopic: null
     };
     
     document.getElementById('questionArea').style.display = 'block';
     document.getElementById('congratsPanel').style.display = 'none';
-    
-    initGame();
 }
 
-// 页面加载完成后初始化
-window.onload = initGame;
+// 不再自动初始化，等待用户选择题库

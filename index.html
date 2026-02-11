@@ -393,9 +393,109 @@
             .question-text { font-size: 1.2em; }
             .option-btn { font-size: 1em; padding: 12px; }
         }
+
+        /* 题库选择界面 */
+        .topic-selection-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .topic-selection-container {
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .topic-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .topic-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .topic-card:active {
+            transform: translateY(-5px);
+        }
+        
+        .topic-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .topic-card h2 {
+            color: #2980B9;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .topic-card p {
+            color: #7f8c8d;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+        
+        .topic-description {
+            font-size: 0.9em !important;
+            color: #95a5a6 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .topic-cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .topic-card {
+                padding: 30px 20px;
+            }
+            
+            .topic-icon {
+                font-size: 60px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- 题库选择界面 -->
+    <div id="topicSelection" class="topic-selection-screen">
+        <div class="topic-selection-container">
+            <h1 style="text-align: center; color: #2980B9; margin-bottom: 30px;">🎮 选择你的挑战</h1>
+            <div class="topic-cards">
+                <div class="topic-card" onclick="startGame('math')">
+                    <div class="topic-icon">🔢</div>
+                    <h2>数学大挑战</h2>
+                    <p>30道小学四年级数学题</p>
+                    <p class="topic-description">加减乘除、应用题、几何...</p>
+                </div>
+                <div class="topic-card" onclick="startGame('science')">
+                    <div class="topic-icon">🔬</div>
+                    <h2>科学大探索</h2>
+                    <p>200道小学四年级科学题</p>
+                    <p class="topic-description">生命、地球、物理、化学...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏主界面 -->
+    <div id="gameMain" class="game-container" style="display: none;">
     <div class="game-container">
         <div class="header">
             <h1>🎮 Polly的宝可梦大挑战</h1>
@@ -466,6 +566,7 @@
     </div>
 
     <script src="questions.js"></script>
+    <script src="science-questions.js"></script>
     <script src="pokemon-data.js"></script>
     <script src="adventure-scenes.js"></script>
     <script src="game.js"></script>
@@ -495,5 +596,6 @@
             <button class="reward-close-btn" onclick="restartGame()">重新挑战</button>
         </div>
     </div>
+    </div><!-- 游戏主界面结束 -->
 </body>
 </html>
