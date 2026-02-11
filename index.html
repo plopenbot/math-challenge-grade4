@@ -357,21 +357,12 @@
                 <div class="progress-fill" id="progressBar">0/30</div>
             </div>
         </div>
-        
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-label">当前题号</div>
-                <div class="stat-value" id="currentQuestion">1</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-label">正确题数</div>
-                <div class="stat-value" id="correctCount">0</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-label">正确率</div>
-                <div class="stat-value" id="accuracy">0%</div>
-            </div>
+
+            <p style="text-align: center; color: #e74c3c; font-weight: bold; margin-top: 10px;">
+                ⚠️ 一命挑战模式 - 答错即失败！
+            </p>
         </div>
+        
         
         <div class="skills-panel">
             <div class="skills-title">🎯 技能卡片</div>
@@ -443,5 +434,22 @@
             lastTouchEnd = now;
         }, { passive: false });
     </script>
+
+    <div class="reward-popup" id="correctPopup">
+        <div class="reward-content">
+            <div class="reward-icon">✅</div>
+            <div class="reward-text">回答正确！</div>
+            <button class="reward-close-btn" onclick="closeCorrectPopup()">下一题</button>
+        </div>
+    </div>
+    
+    <div class="reward-popup" id="failPopup">
+        <div class="reward-content">
+            <div class="reward-icon">😢</div>
+            <div class="reward-text">答错了！挑战失败</div>
+            <p style="margin: 15px 0; color: #7f8c8d;">已通过 <span id="failedAt">0</span> 题</p>
+            <button class="reward-close-btn" onclick="restartGame()">重新挑战</button>
+        </div>
+    </div>
 </body>
 </html>

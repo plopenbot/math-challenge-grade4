@@ -20,7 +20,7 @@ function initGame() {
     
     // 显示第一题
     loadQuestion();
-    updateStats();
+    updateProgress();
     updateSkillButtons();
 }
 
@@ -32,6 +32,9 @@ function loadQuestion() {
     // 重置状态
     gameState.answered = false;
     gameState.eliminatedOptions = [];
+    
+    // 更新技能按钮状态
+    updateSkillButtons();
     
     // 更新题号
     document.getElementById('questionNumber').textContent = `第 ${questionNum} 题`;
@@ -67,7 +70,7 @@ function selectAnswer(btn) {
     gameState.answered = true;
     const isCorrect = btn.dataset.correct === 'true';
     
-    // 禁用所有按钮
+    // 禁用所有按钮和技能
     const allButtons = document.querySelectorAll('.option-btn');
     allButtons.forEach(b => {
         b.disabled = true;
@@ -76,32 +79,37 @@ function selectAnswer(btn) {
         }
     });
     
+    updateSkillButtons();
+    
     // 标记选中的答案
     if (isCorrect) {
         btn.classList.add('correct');
         gameState.correctAnswers++;
+        
+        // 答对：显示正确弹窗
+        setTimeout(() => {
+            // 检查是否获得奖励
+            const questionNum = gameState.currentQuestionIndex + 1;
+            if (questionNum % 6 === 0 && questionNum < 30) {
+                showReward();
+            } else if (questionNum >= 30) {
+                // 第30题答对，直接通关
+                showCongrats();
+            } else {
+                showCorrectPopup();
+            }
+        }, 500);
     } else {
         btn.classList.add('wrong');
+        
+        // 答错：显示失败弹窗
+        setTimeout(() => {
+            showFailPopup();
+        }, 800);
     }
     
-    // 更新统计
-    updateStats();
-    
-    // 检查是否获得奖励
-    const questionNum = gameState.currentQuestionIndex + 1;
-    if (isCorrect && questionNum % 6 === 0 && questionNum < 30) {
-        setTimeout(() => showReward(), 800);
-    }
-    
-    // 显示下一题按钮或通关按钮
-    const nextBtn = document.getElementById('nextBtn');
-    if (gameState.currentQuestionIndex < 29) {
-        nextBtn.textContent = '下一题 →';
-        nextBtn.style.display = 'block';
-    } else {
-        nextBtn.textContent = '查看成绩 🎉';
-        nextBtn.style.display = 'block';
-    }
+    // 更新进度条
+    updateProgress();
 }
 
 // 下一题
@@ -112,8 +120,25 @@ function nextQuestion() {
         showCongrats();
     } else {
         loadQuestion();
-        updateStats();
+        updateProgress();
     }
+}
+
+// 显示正确弹窗
+function showCorrectPopup() {
+    document.getElementById('correctPopup').style.display = 'flex';
+}
+
+// 关闭正确弹窗
+function closeCorrectPopup() {
+    document.getElementById('correctPopup').style.display = 'none';
+    nextQuestion();
+}
+
+// 显示失败弹窗
+function showFailPopup() {
+    document.getElementById('failedAt').textContent = gameState.currentQuestionIndex;
+    document.getElementById('failPopup').style.display = 'flex';
 }
 
 // 使用技能
@@ -172,30 +197,22 @@ function showReward() {
     const randomSkill = skills[Math.floor(Math.random() * skills.length)];
     
     gameState.skills[randomSkill]++;
+    updateSkillButtons();
     
     document.getElementById('rewardText').textContent = 
         `🎉 恭喜获得技能卡片：${skillNames[randomSkill]}！`;
     document.getElementById('rewardPopup').style.display = 'flex';
-    
-    updateSkillButtons();
 }
 
 // 关闭奖励弹窗
 function closeReward() {
     document.getElementById('rewardPopup').style.display = 'none';
+    nextQuestion();
 }
 
-// 更新统计数据
-function updateStats() {
+// 更新进度条
+function updateProgress() {
     const current = gameState.currentQuestionIndex + 1;
-    const correct = gameState.correctAnswers;
-    const accuracy = current > 0 ? Math.round((correct / current) * 100) : 0;
-    
-    document.getElementById('currentQuestion').textContent = current;
-    document.getElementById('correctCount').textContent = correct;
-    document.getElementById('accuracy').textContent = accuracy + '%';
-    
-    // 更新进度条
     const progress = (current / 30) * 100;
     const progressBar = document.getElementById('progressBar');
     progressBar.style.width = progress + '%';
@@ -204,13 +221,20 @@ function updateStats() {
 
 // 更新技能按钮
 function updateSkillButtons() {
+    // 更新技能数量显示
     document.getElementById('dadCount').textContent = gameState.skills.dad;
     document.getElementById('eliminateCount').textContent = gameState.skills.eliminate;
     document.getElementById('changeCount').textContent = gameState.skills.change;
     
-    document.getElementById('skillDad').disabled = gameState.skills.dad <= 0 || gameState.answered;
-    document.getElementById('skillEliminate').disabled = gameState.skills.eliminate <= 0 || gameState.answered;
-    document.getElementById('skillChange').disabled = gameState.skills.change <= 0 || gameState.answered;
+    // 更新按钮可用状态
+    const dadBtn = document.getElementById('skillDad');
+    const eliminateBtn = document.getElementById('skillEliminate');
+    const changeBtn = document.getElementById('skillChange');
+    
+    // 技能按钮在已答题或技能数为0时禁用
+    dadBtn.disabled = gameState.skills.dad <= 0 || gameState.answered;
+    eliminateBtn.disabled = gameState.skills.eliminate <= 0 || gameState.answered;
+    changeBtn.disabled = gameState.skills.change <= 0 || gameState.answered;
 }
 
 // 显示通关界面
@@ -225,6 +249,11 @@ function showCongrats() {
 
 // 重新开始
 function restartGame() {
+    // 关闭所有弹窗
+    document.getElementById('failPopup').style.display = 'none';
+    document.getElementById('rewardPopup').style.display = 'none';
+    document.getElementById('correctPopup').style.display = 'none';
+    
     gameState = {
         currentQuestionIndex: 0,
         correctAnswers: 0,
