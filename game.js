@@ -137,7 +137,7 @@ function showCorrectPopup() {
     content.innerHTML = `
         <div class="reward-icon">✅</div>
         <div class="reward-text">${encouragement}</div>
-        <div style="width: 150px; height: 150px; margin: 15px auto; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 10px;">
+        <div id="pokemonImagePlaceholder" style="width: 150px; height: 150px; margin: 15px auto; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 10px;">
             <div style="color: #999; font-size: 14px;">加载中...</div>
         </div>
         ${pokemon.isShiny ? '<div class="shiny-badge">✨ 闪光宝可梦！</div>' : ''}
@@ -150,7 +150,7 @@ function showCorrectPopup() {
     // 异步加载图片
     const img = new Image();
     img.onload = function() {
-        const placeholder = content.querySelector('div[style*="加载中"]')?.parentElement;
+        const placeholder = document.getElementById('pokemonImagePlaceholder');
         if (placeholder) {
             const imgElement = document.createElement('img');
             imgElement.src = pokemon.imageUrl;
@@ -161,9 +161,9 @@ function showCorrectPopup() {
     };
     img.onerror = function() {
         // 加载失败，显示占位图
-        const placeholder = content.querySelector('div[style*="加载中"]')?.parentElement;
+        const placeholder = document.getElementById('pokemonImagePlaceholder');
         if (placeholder) {
-            placeholder.innerHTML = '<div style="color: #999; font-size: 14px;">🎮</div>';
+            placeholder.innerHTML = '<div style="color: #999; font-size: 40px;">🎮</div>';
         }
     };
     img.src = pokemon.imageUrl;
