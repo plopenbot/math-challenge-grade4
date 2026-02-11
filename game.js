@@ -133,20 +133,40 @@ function showCorrectPopup() {
     const pokemon = pokemonData.getRandom();
     const encouragement = pokemonData.getEncouragement();
     
-    // 构建弹窗内容
+    // 先显示弹窗（带占位符），图片异步加载
     content.innerHTML = `
         <div class="reward-icon">✅</div>
         <div class="reward-text">${encouragement}</div>
-        <img src="${pokemon.imageUrl}" 
-             alt="${pokemon.name}" 
-             class="pokemon-image"
-             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23f0f0f0%22 width=%22200%22 height=%22200%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22 font-size=%2220%22>加载中...</text></svg>'">
+        <div style="width: 200px; height: 200px; margin: 15px auto; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 10px;">
+            <div style="color: #999; font-size: 14px;">加载中...</div>
+        </div>
         ${pokemon.isShiny ? '<div class="shiny-badge">✨ 闪光宝可梦！</div>' : ''}
         <div class="pokemon-id">${pokemon.name}</div>
         <button class="reward-close-btn" onclick="closeCorrectPopup()">下一题</button>
     `;
     
     popup.style.display = 'flex';
+    
+    // 异步加载图片
+    const img = new Image();
+    img.onload = function() {
+        const placeholder = content.querySelector('div[style*="加载中"]')?.parentElement;
+        if (placeholder) {
+            const imgElement = document.createElement('img');
+            imgElement.src = pokemon.imageUrl;
+            imgElement.alt = pokemon.name;
+            imgElement.className = 'pokemon-image';
+            placeholder.replaceWith(imgElement);
+        }
+    };
+    img.onerror = function() {
+        // 加载失败，显示占位图
+        const placeholder = content.querySelector('div[style*="加载中"]')?.parentElement;
+        if (placeholder) {
+            placeholder.innerHTML = '<div style="color: #999; font-size: 14px;">🎮</div>';
+        }
+    };
+    img.src = pokemon.imageUrl;
 }
 
 // 关闭正确弹窗
@@ -158,20 +178,27 @@ function closeCorrectPopup() {
 // 显示失败弹窗
 function showFailPopup() {
     const currentNum = gameState.currentQuestionIndex;
-    const failText = document.getElementById('failText');
+    const popup = document.getElementById('failPopup');
+    const content = popup.querySelector('.reward-content');
     
     if (currentNum === 0) {
-        failText.textContent = '加油！再试一次吧';
-        document.getElementById('failedAt').parentElement.style.display = 'none';
+        // 第一题答错
+        content.innerHTML = `
+            <div class="reward-icon">😢</div>
+            <div class="reward-text">加油！再试一次吧</div>
+            <button class="reward-close-btn" onclick="restartGame()">重新挑战</button>
+        `;
     } else {
-        failText.textContent = '答错了！挑战失败';
-        document.getElementById('failedAt').textContent = currentNum;
-        document.getElementById('failedAt').parentElement.style.display = 'block';
-        document.getElementById('failedAt').parentElement.innerHTML = 
-            `<p style="margin: 15px 0; color: #7f8c8d;">已通过 <span id="failedAt">${currentNum}</span> 题，继续努力！</p>`;
+        // 其他题答错
+        content.innerHTML = `
+            <div class="reward-icon">😢</div>
+            <div class="reward-text">答错了！挑战失败</div>
+            <p style="margin: 15px 0; color: #7f8c8d;">已通过 ${currentNum} 题，继续努力！</p>
+            <button class="reward-close-btn" onclick="restartGame()">重新挑战</button>
+        `;
     }
     
-    document.getElementById('failPopup').style.display = 'flex';
+    popup.style.display = 'flex';
 }
 
 // 使用技能
