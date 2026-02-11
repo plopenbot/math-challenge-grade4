@@ -296,6 +296,52 @@
             margin-bottom: 20px;
         }
         
+        
+        .pokemon-image {
+            width: 200px;
+            height: 200px;
+            margin: 15px auto;
+            object-fit: contain;
+            animation: pokemonAppear 0.8s ease;
+        }
+        
+        @keyframes pokemonAppear {
+            0% { 
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2) rotate(10deg);
+            }
+            100% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .shiny-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 10px;
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+        }
+        
+        .pokemon-id {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
         .reward-close-btn {
             background: #3498db;
             color: white;
@@ -358,9 +404,6 @@
             </div>
         </div>
 
-            <p style="text-align: center; color: #e74c3c; font-weight: bold; margin-top: 10px;">
-                ⚠️ 一命挑战模式 - 答错即失败！
-            </p>
         </div>
         
         
@@ -422,6 +465,7 @@
     </div>
 
     <script src="questions.js"></script>
+    <script src="pokemon-data.js"></script>
     <script src="game.js"></script>
     <script>
         // 禁用双击缩放
@@ -437,9 +481,7 @@
 
     <div class="reward-popup" id="correctPopup">
         <div class="reward-content">
-            <div class="reward-icon">✅</div>
-            <div class="reward-text">回答正确！</div>
-            <button class="reward-close-btn" onclick="closeCorrectPopup()">下一题</button>
+            <!-- 动态生成内容 -->
         </div>
     </div>
     

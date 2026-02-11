@@ -124,9 +124,29 @@ function nextQuestion() {
     }
 }
 
-// 显示正确弹窗
+// 显示正确弹窗（带宝可梦奖励）
 function showCorrectPopup() {
-    document.getElementById('correctPopup').style.display = 'flex';
+    const popup = document.getElementById('correctPopup');
+    const content = popup.querySelector('.reward-content');
+    
+    // 获取随机宝可梦和鼓励语
+    const pokemon = pokemonData.getRandom();
+    const encouragement = pokemonData.getEncouragement();
+    
+    // 构建弹窗内容
+    content.innerHTML = `
+        <div class="reward-icon">✅</div>
+        <div class="reward-text">${encouragement}</div>
+        <img src="${pokemon.imageUrl}" 
+             alt="${pokemon.name}" 
+             class="pokemon-image"
+             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23f0f0f0%22 width=%22200%22 height=%22200%22/><text x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22 font-size=%2220%22>加载中...</text></svg>'">
+        ${pokemon.isShiny ? '<div class="shiny-badge">✨ 闪光宝可梦！</div>' : ''}
+        <div class="pokemon-id">${pokemon.name}</div>
+        <button class="reward-close-btn" onclick="closeCorrectPopup()">下一题</button>
+    `;
+    
+    popup.style.display = 'flex';
 }
 
 // 关闭正确弹窗
@@ -137,7 +157,20 @@ function closeCorrectPopup() {
 
 // 显示失败弹窗
 function showFailPopup() {
-    document.getElementById('failedAt').textContent = gameState.currentQuestionIndex;
+    const currentNum = gameState.currentQuestionIndex;
+    const failText = document.getElementById('failText');
+    
+    if (currentNum === 0) {
+        failText.textContent = '加油！再试一次吧';
+        document.getElementById('failedAt').parentElement.style.display = 'none';
+    } else {
+        failText.textContent = '答错了！挑战失败';
+        document.getElementById('failedAt').textContent = currentNum;
+        document.getElementById('failedAt').parentElement.style.display = 'block';
+        document.getElementById('failedAt').parentElement.innerHTML = 
+            `<p style="margin: 15px 0; color: #7f8c8d;">已通过 <span id="failedAt">${currentNum}</span> 题，继续努力！</p>`;
+    }
+    
     document.getElementById('failPopup').style.display = 'flex';
 }
 
