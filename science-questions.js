@@ -181,4 +181,54 @@ const scienceQuestionBank = [
     { question: "地球本身是一个什么？", answer: "大磁铁", distractors: ["大电池", "大镜子", "大灯泡"] },
     { question: "同名磁极会怎样？", answer: "相互排斥", distractors: ["相互吸引", "没有作用", "相互融合"] },
     { question: "异名磁极会怎样？", answer: "相互吸引", distractors: ["相互排斥", "没有作用", "相互分离"] }
+
+    
+    // === 更多生命科学 ===
+    { question: "人体有多少块肌肉？", answer: "600多块", distractors: ["200多块", "1000多块", "100多块"] },
+    { question: "血液的主要功能是什么？", answer: "运输营养和氧气", distractors: ["消化食物", "产生能量", "储存脂肪"] },
+    { question: "哪种血型被称为万能受血者？", answer: "AB型", distractors: ["O型", "A型", "B型"] },
+    { question: "哪种血型被称为万能供血者？", answer: "O型", distractors: ["AB型", "A型", "B型"] },
+    { question: "人体最小的骨头在哪里？", answer: "耳朵", distractors: ["手指", "脚趾", "鼻子"] },
+    { question: "指纹的作用是什么？", answer: "增加摩擦力", distractors: ["排汗", "感知温度", "装饰"] },
+    { question: "舌头上感受甜味的部位在哪里？", answer: "舌尖", distractors: ["舌根", "舌侧", "舌中"] },
+    { question: "人的唾液有什么作用？", answer: "帮助消化", distractors: ["杀菌", "降温", "润滑"] },
+    { question: "哪种器官可以再生？", answer: "肝脏", distractors: ["心脏", "大脑", "肺"] },
+    { question: "人体最大的淋巴器官是什么？", answer: "脾脏", distractors: ["肝脏", "肾脏", "心脏"] },
+    
+    // === 更多植物科学 ===
+    { question: "向日葵为什么会转向太阳？", answer: "向光性", distractors: ["趋热性", "趋水性", "趋肥性"] },
+    { question: "哪种植物的叶子可以预报天气？", answer: "含羞草", distractors: ["玫瑰", "月季", "牡丹"] },
+    { question: "植物的呼吸作用发生在什么时候？", answer: "全天", distractors: ["白天", "夜晚", "傍晚"] },
+    { question: "水稻是什么类型的植物？", answer: "草本植物", distractors: ["木本植物", "藤本植物", "灌木"] },
+    { question: "哪种植物的茎可以储存水分？", answer: "仙人掌", distractors: ["玫瑰", "菊花", "牡丹"] },
+    { question: "种子的胚包括哪些部分？", answer: "胚根、胚芽、胚轴", distractors: ["根、茎、叶", "花、果、种", "叶、花、根"] },
+    { question: "哪种植物可以用叶子繁殖？", answer: "落地生根", distractors: ["玫瑰", "月季", "牡丹"] },
+    { question: "树木年轮宽窄表示什么？", answer: "生长速度", distractors: ["年龄", "高度", "粗细"] },
+    { question: "哪种植物的果实可以飞行？", answer: "蒲公英", distractors: ["苹果", "西瓜", "橙子"] },
+    { question: "植物的蒸腾作用主要通过什么进行？", answer: "叶片", distractors: ["根", "茎", "花"] },
+    
+    // === 更多动物科学 ===
+    { question: "哪种动物的心脏有四个腔室？", answer: "哺乳动物", distractors: ["鱼类", "两栖类", "昆虫"] },
+    { question: "蝙蝠用什么导航？", answer: "超声波", distractors: ["眼睛", "嗅觉", "磁场"] },
+    { question: "变温动物的体温取决于什么？", answer: "环境温度", distractors: ["食物", "运动", "年龄"] },
+    { question: "哪种动物是恒温动物？", answer: "鸟类", distractors: ["蛇类", "鱼类", "昆虫"] },
+    { question: "猫的胡须有什么作用？", answer: "测量距离", distractors: ["装饰", "吃饭", "听声音"] },
+    { question: "袋鼠的育儿袋在哪里？", answer: "腹部", distractors: ["背部", "头部", "尾部"] },
+    { question: "哪种动物会冬眠？", answer: "熊", distractors: ["狼", "鹿", "兔"] },
+    { question: "蚂蚁靠什么辨认同伴？", answer: "气味", distractors: ["颜色", "声音", "形状"] },
+    { question: "哪种动物的尾巴可以再生？", answer: "壁虎", distractors: ["猫", "狗", "兔"] },
+    { question: "章鱼有几颗心脏？", answer: "3颗", distractors: ["1颗", "2颗", "4颗"] },
+    
+    // === 更多地球科学 ===
+    { question: "潮汐是由什么引起的？", answer: "月球引力", distractors: ["太阳引力", "地球自转", "风力"] },
+    { question: "地球的内核主要是什么物质？", answer: "铁和镍", distractors: ["岩石", "水", "气体"] },
+    { question: "岩石风化是什么变化？", answer: "物理变化", distractors: ["化学变化", "生物变化", "核变化"] },
+    { question: "海平面上升的主要原因是什么？", answer: "全球变暖", distractors: ["降雨增多", "地震", "火山"] },
+    { question: "沙漠形成的主要原因是什么？", answer: "降水少", distractors: ["温度高", "风大", "植物少"] },
+    { question: "地球上最深的海沟是什么？", answer: "马里亚纳海沟", distractors: ["太平洋海沟", "大西洋海沟", "印度洋海沟"] },
+    { question: "地震的震级用什么衡量？", answer: "里氏震级", distractors: ["华氏温度", "摄氏温度", "帕斯卡"] },
+    { question: "龙卷风的形状是什么？", answer: "漏斗状", distractors: ["圆形", "方形", "三角形"] },
+    { question: "冰川移动会形成什么？", answer: "峡谷", distractors: ["沙漠", "平原", "湖泊"] },
+    { question: "珊瑚礁是由什么形成的？", answer: "珊瑚虫", distractors: ["岩石", "贝壳", "海藻"] }
+];
 ];
