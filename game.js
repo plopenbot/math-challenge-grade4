@@ -166,6 +166,10 @@ function showCorrectPopup() {
     
     const encouragement = pokemonData.getEncouragement();
     
+    // 获取中文信息
+    const zhInfo = pokemonZhData[pokemon.id] || { name: pokemon.name, desc: '神秘的宝可梦' };
+    const pokemonTitle = pokemon.isShiny ? `✨ ${zhInfo.name}（闪光）` : zhInfo.name;
+    
     // 先显示弹窗（带占位符），图片异步加载
     content.innerHTML = `
         <div class="reward-icon">✅</div>
@@ -174,7 +178,8 @@ function showCorrectPopup() {
             <div style="color: #999; font-size: 14px;">加载中...</div>
         </div>
         ${pokemon.isShiny ? '<div class="shiny-badge">✨ 闪光宝可梦！</div>' : ''}
-        <div class="pokemon-id">${pokemon.name}</div>
+        <div class="pokemon-id" style="font-size: 1.2em; font-weight: bold; margin: 10px 0;">${pokemonTitle}</div>
+        <div class="pokemon-desc" style="font-size: 0.9em; color: #666; padding: 0 20px; line-height: 1.5; margin-bottom: 15px;">${zhInfo.desc}</div>
         <button class="reward-close-btn" onclick="closeCorrectPopup()">下一题</button>
     `;
     
