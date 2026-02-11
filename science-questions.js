@@ -180,7 +180,7 @@ const scienceQuestionBank = [
     { question: "磁铁能吸引什么物质？", answer: "铁、钴、镍", distractors: ["铜、铝、金", "木、纸、布", "水、油、气"] },
     { question: "地球本身是一个什么？", answer: "大磁铁", distractors: ["大电池", "大镜子", "大灯泡"] },
     { question: "同名磁极会怎样？", answer: "相互排斥", distractors: ["相互吸引", "没有作用", "相互融合"] },
-    { question: "异名磁极会怎样？", answer: "相互吸引", distractors: ["相互排斥", "没有作用", "相互分离"] }
+    { question: "异名磁极会怎样？", answer: "相互吸引", distractors: ["相互排斥", "没有作用", "相互分离"] },
 
     
     // === 更多生命科学 ===
@@ -228,7 +228,6 @@ const scienceQuestionBank = [
     { question: "地球上最深的海沟是什么？", answer: "马里亚纳海沟", distractors: ["太平洋海沟", "大西洋海沟", "印度洋海沟"] },
     { question: "地震的震级用什么衡量？", answer: "里氏震级", distractors: ["华氏温度", "摄氏温度", "帕斯卡"] },
     { question: "龙卷风的形状是什么？", answer: "漏斗状", distractors: ["圆形", "方形", "三角形"] },
-    { question: "冰川移动会形成什么？", answer: "峡谷", distractors: ["沙漠", "平原", "湖泊"] },
+        { question: "冰川移动会形成什么？", answer: "峡谷", distractors: ["沙漠", "平原", "湖泊"] },
     { question: "珊瑚礁是由什么形成的？", answer: "珊瑚虫", distractors: ["岩石", "贝壳", "海藻"] }
-];
 ];
