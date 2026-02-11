@@ -137,7 +137,7 @@ function showCorrectPopup() {
     content.innerHTML = `
         <div class="reward-icon">✅</div>
         <div class="reward-text">${encouragement}</div>
-        <div style="width: 200px; height: 200px; margin: 15px auto; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 10px;">
+        <div style="width: 150px; height: 150px; margin: 15px auto; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 10px;">
             <div style="color: #999; font-size: 14px;">加载中...</div>
         </div>
         ${pokemon.isShiny ? '<div class="shiny-badge">✨ 闪光宝可梦！</div>' : ''}
