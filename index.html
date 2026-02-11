@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <title>小学四年级数学大通关</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        html {
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #6DD5FA 0%, #2980B9 100%);
+            min-height: 100vh;
+            padding: 15px;
+            touch-action: manipulation;
+        }
+        
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2980B9;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            background: #ecf0f1;
+            height: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+        
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        .skills-panel {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .skills-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .skill-btn {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 12px 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+            position: relative;
+        }
+        
+        .skill-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+        
+        .skill-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #bdc3c7;
+        }
+        
+        .skill-icon {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        
+        .skill-count {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #e74c3c;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .question-panel {
+            background: #fff9e6;
+            border: 3px solid #f39c12;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 150px;
+        }
+        
+        .question-number {
+            color: #e67e22;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .question-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .option-btn {
+            background: white;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .option-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+        
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+        
+        .option-btn.correct {
+            background: #2ecc71;
+            border-color: #27ae60;
+            color: white;
+        }
+        
+        .option-btn.wrong {
+            background: #e74c3c;
+            border-color: #c0392b;
+            color: white;
+        }
+        
+        .option-btn.eliminated {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .option-btn.highlighted {
+            background: #f1c40f;
+            border-color: #f39c12;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .next-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .next-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .reward-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .reward-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 350px;
+            animation: bounceIn 0.6s ease;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .reward-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .reward-text {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .reward-close-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+        
+        .congrats-panel {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .congrats-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+        }
+        
+        .congrats-text {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2ecc71;
+            margin-bottom: 20px;
+        }
+        
+        .congrats-stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        @media screen and (max-width: 480px) {
+            h1 { font-size: 1.5em; }
+            .question-text { font-size: 1.2em; }
+            .option-btn { font-size: 1em; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>🎓 小学四年级数学大通关</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar">0/30</div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-label">当前题号</div>
+                <div class="stat-value" id="currentQuestion">1</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">正确题数</div>
+                <div class="stat-value" id="correctCount">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">正确率</div>
+                <div class="stat-value" id="accuracy">0%</div>
+            </div>
+        </div>
+        
+        <div class="skills-panel">
+            <div class="skills-title">🎯 技能卡片</div>
+            <div class="skills">
+                <button class="skill-btn" id="skillDad" onclick="useSkill('dad')">
+                    <div class="skill-icon">🧑‍💼</div>
+                    <div>求助爸爸</div>
+                    <div class="skill-count" id="dadCount">1</div>
+                </button>
+                <button class="skill-btn" id="skillEliminate" onclick="useSkill('eliminate')">
+                    <div class="skill-icon">❌</div>
+                    <div>排除错误</div>
+                    <div class="skill-count" id="eliminateCount">1</div>
+                </button>
+                <button class="skill-btn" id="skillChange" onclick="useSkill('change')">
+                    <div class="skill-icon">🔄</div>
+                    <div>换题</div>
+                    <div class="skill-count" id="changeCount">1</div>
+                </button>
+            </div>
+        </div>
+        
+        <div id="questionArea">
+            <div class="question-panel">
+                <div class="question-number" id="questionNumber">第 1 题</div>
+                <div class="question-text" id="questionText">加载中...</div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+            
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一题 →</button>
+        </div>
+        
+        <div class="congrats-panel" id="congratsPanel">
+            <div class="congrats-icon">🎉</div>
+            <div class="congrats-text">恭喜通关！</div>
+            <div class="congrats-stats">
+                <p style="font-size: 1.2em; margin: 10px 0;">
+                    <strong>最终成绩</strong>
+                </p>
+                <p style="font-size: 1.5em; color: #2ecc71; margin: 10px 0;">
+                    正确 <span id="finalCorrect">0</span> / 30 题
+                </p>
+                <p style="font-size: 1.2em; color: #3498db;">
+                    正确率：<span id="finalAccuracy">0</span>%
+                </p>
+            </div>
+            <button class="restart-btn" onclick="restartGame()">再来一次</button>
+        </div>
+    </div>
+    
+    <div class="reward-popup" id="rewardPopup">
+        <div class="reward-content">
+            <div class="reward-icon">🎁</div>
+            <div class="reward-text" id="rewardText">恭喜获得技能卡片！</div>
+            <button class="reward-close-btn" onclick="closeReward()">继续闯关</button>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="game.js"></script>
+    <script>
+        // 禁用双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+    </script>
+</body>
+</html>
